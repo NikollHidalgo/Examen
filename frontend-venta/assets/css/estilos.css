@@ -1,0 +1,76 @@
+#iframeContainer {
+
+    top: 40%;
+    display: flex; 
+    flex-direction: column; 
+    min-height: calc(100vh - 50px); 
+}
+
+#contentFrame {
+    flex-grow: 1; 
+    border: none; 
+}
+.btn-secundary{
+   
+    background-color: red;
+}
+.btn-primary{
+    background-color: blue;
+}
+
+.new{
+    position: relative;
+    float: right;
+    height: 43px;
+    color: green;
+}
+
+
+#iframeContainer {
+    width: 100%;
+  
+  }
+  
+  #iframeContainer .iframe {
+    width: 100%;
+    border: none;
+  }
+  
+
+  .btn-close{
+    background-color: red;
+  }
+  
+  button[name="btnAgregar"]:hover {
+    background-color: #1ed30e; 
+  }
+
+  button[name="btnCloced"]:hover{
+    background-color: red;
+  }
+
+ .ui-autocomplete{
+  z-index: 9999 !important;
+ }
+
+ .form-control1{
+    display: inline;
+    width: 92px; 
+  }
+  
+  .container-document{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    margin: 50px;
+  
+  }
+  .item--document{
+    margin-right: 25px;
+  }
+  
+  .margin-bottom{
+    margin: 10px;
+    display: flex;
+    gap: 20px;
+  }

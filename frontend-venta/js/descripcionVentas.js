@@ -3,17 +3,23 @@ function save() {
     try {
       
       var data = {
-        "total": $("#total").val(),
-        "fechaVenta": $("#fechaVenta").val(),
-      "clientes":{
-        "id": parseInt($('#clientes_id').val())
+        "cantidad": $("#cantidad").val(),
+        "precio": $("#precio").val(),
+        "descuento": $("#descuento").val(),
+        "subTotal": $("#subTotal").val(),
+      "ventas":{
+        "id": parseInt($('#ventas_id').val())
     },
+        "productos":{
+            "id": parseInt($('#productos_id').val())
+        },
+
         "state": parseInt($("#estado").val())
       };
   
       var jsonData = JSON.stringify(data);
       $.ajax({
-        url: "http://localhost:9000/backend-venta/v1/api/ventas",
+        url: "http://localhost:9000/backend-venta/v1/api/descripcion_ventas",
         method: "POST",
         dataType: "json",
         contentType: "application/json",
@@ -34,15 +40,18 @@ function save() {
         },
       });
     } catch (error) {
-      console.error("Error obteniendo las ventas:", error);
+      console.error("Error obteniendo las descripciones ventas:", error);
     }
   }
 
   function clearData() {
     $("#id").val("");
-    $("#total").val("");
-    $("#fechaVenta").val("");
-    $("#clientes_id").val("");
+    $("#cantidad").val("");
+    $("#precio").val("");
+    $("#descuento").val("");
+    $("#subTotal").val("");
+    $("#ventas_id").val("");
+    $("#productos_id").val("");
     $("#estado").val("");
     var btnAgregar = $('button[name="btnAgregar"]');
         btnAgregar.text("Agregar");
@@ -51,7 +60,7 @@ function save() {
 
   function loadData() {
     $.ajax({
-      url: "http://localhost:9000/backend-venta/v1/api/ventas",
+      url: "http://localhost:9000/backend-venta/v1/api/descripcion_ventas",
       method: "GET",
       dataType: "json",
       success: function (response) {
@@ -63,9 +72,12 @@ function save() {
           if (!item.deletedAt) {
           html +=
             `<tr>
-                    <td>${item.total}</td>
-                    <td>` + item.fechaVenta + `</td>
-                    <td>` + item.clientes.name + `</td>
+                    <td>${item.cantidad}</td>
+                    <td>` + item.precio + `</td>
+                    <td>` + item.descuento + `</td>
+                    <td>` + item.subTotal + `</td>
+                    <td>` + item.ventas.name + `</td>
+                    <td>` + item.productos.name + `</td>
                     <td>` + (item.state == true ? "Activo" : "Inactivo") + `</td>
                     <td> <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#staticBackdrop" onclick="findById(${item.id})"> <img src="/assets/icon/pencil-square.svg" > </button>
                     <button type="button" class="btn btn-secundary" onclick="deleteById(${item.id})"> <img src="/assets/icon/trash3.svg" > </button></td>
@@ -94,7 +106,7 @@ function save() {
     }).then((result) => {
       if (result.isConfirmed) {
         $.ajax({
-          url: "http://localhost:9000/backend-venta/v1/api/clientes/" + id,
+          url: "http://localhost:9000/backend-venta/v1/api/descripcion_ventas/" + id,
           method: "delete",
           headers: {
             "Content-Type": "application/json",
@@ -115,10 +127,12 @@ function save() {
     // Construir el objeto data
     try{
       var data = {
-        "total": $("#total").val(),
-        "fechaVenta": $("#fechaVenta").val(),
-        "clientes":{
-          "id": parseInt($('#clientes_id').val())
+        "cantidad": $("#cantidad").val(),
+        "precio": $("#precio").val(),
+        "descuento": $("#descuento").val(),
+        "subTotal": $("#subTotal").val(),
+        "ventas":{
+          "id": parseInt($('#ventas_id').val())
       },
         "state": parseInt($("#estado").val())
       };
@@ -126,7 +140,7 @@ function save() {
       var id = $("#id").val();
       var jsonData = JSON.stringify(data);
       $.ajax({
-        url: "http://localhost:9000/backend-venta/v1/api/clientes/" + id,
+        url: "http://localhost:9000/backend-venta/v1/api/descripcion_ventas/" + id,
         data: jsonData,
         method: "PUT",
         headers: {
@@ -162,15 +176,18 @@ function save() {
 
   function findById(id) {
     $.ajax({
-      url: "http://localhost:9000/backend-venta/v1/api/ventas/" + id,
+      url: "http://localhost:9000/backend-venta/v1/api/descripcion_ventas/" + id,
       method: "GET",
       dataType: "json",
       success: function (response) {
         var data=response.data;
         $("#id").val(data.id);
-        $("#total").val(data.total);
-        $('#fechaVenta').val(data.fechaVenta);
-        $('#clientes_id').val(data.clientes.id);
+        $("#cantidad").val(data.cantidad);
+        $('#precio').val(data.precio);
+        $('#descuento').val(data.descuento);
+        $('#subTotal').val(data.subTotal);
+        $('#ventas_id').val(data.ventas.id);
+        $('#productos_id').val(data.productos.id);
         $("#estado").val(data.state == true ? 1 : 0);
   
         //Cambiar boton.
@@ -185,9 +202,9 @@ function save() {
     });
   }
 
-  function loadClientes() {
+  function loadVentas() {
     $.ajax({
-      url: "http://localhost:9000/backend-venta/v1/api/clientes",
+      url: "http://localhost:9000/backend-venta/v1/api/ventas",
       method: "GET",
       dataType: "json",
       success: function (response) {
@@ -198,7 +215,32 @@ function save() {
               // Construir el HTML para cada objeto
               html += `<option value="${item.id}">${item.name}</option>`;
             });
-            $("#clientes_id").html(html);
+            $("#ventas_id").html(html);
+          } else {
+            console.error("Error: No se pudo obtener la lista de clientes.");
+          }
+      },
+      error: function (error) {
+        // Función que se ejecuta si hay un error en la solicitud
+        console.error("Error en la solicitud:", error);
+      },
+    });
+  }
+
+  function loadProductos() {
+    $.ajax({
+      url: "http://localhost:9000/backend-venta/v1/api/productos",
+      method: "GET",
+      dataType: "json",
+      success: function (response) {
+        var html = "";
+        if (response.status && Array.isArray(response.data)) {
+            console.log(response.data);
+            response.data.forEach(function (item) {
+              // Construir el HTML para cada objeto
+              html += `<option value="${item.id}">${item.name}</option>`;
+            });
+            $("#productos_id").html(html);
           } else {
             console.error("Error: No se pudo obtener la lista de clientes.");
           }

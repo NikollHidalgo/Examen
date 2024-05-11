@@ -74,3 +74,166 @@
     display: flex;
     gap: 20px;
   }
+
+  /* Estilos del body */
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-image: url('assets/img/bg2.jpg'); /* Cambiar 'ruta/de/imagen.jpg' por la ruta de tu imagen de fondo */
+  background-size: cover; /* Ajustar la imagen para que cubra todo el cuerpo */
+}
+
+/* Estilos del navbar */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.8); /* Fondo semi-transparente */
+  padding: 20px;
+  color: #fff;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra ligera para resaltar el navbar */
+}
+
+/* Estilos del logo */
+.logo a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 24px;
+  font-weight: bold; /* Hacer el logo más llamativo */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Agregar un efecto de sombra al texto */
+}
+
+/* Estilos de los enlaces del navbar */
+.navbar-links ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+}
+
+.navbar-links ul li {
+  margin-right: 20px;
+}
+
+.navbar-links ul li a {
+  color: #fff;
+  text-decoration: none;
+  transition: color 0.3s ease; /* Transición suave al color */
+}
+
+/* Efecto al pasar el mouse sobre los enlaces */
+.navbar-links ul li a:hover {
+  color: #ffc107; /* Cambiar a tu color de resaltado preferido */
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5); /* Agregar un efecto de sombra al texto al pasar el mouse */
+}
+
+/* Dropdown container */
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+/* Dropdown enlace */
+.dropbtn {
+  font-size: 16px;  
+  border: none;
+  outline: none;
+  color: white;
+  background-color: inherit;
+  cursor: pointer;
+  padding: 14px 16px;
+}
+
+/* Dropdown contenido */
+.dropdown-content {
+  display: none;
+  position: absolute;
+  background-color: #333;
+  min-width: 160px;
+  z-index: 1;
+}
+
+/* Enlaces dentro del dropdown */
+.dropdown-content a {
+  color: white;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+}
+
+/* Enlaces dentro del dropdown al pasar el mouse */
+.dropdown-content a:hover {
+  background-color: #ffc107; /* Cambiar a tu color de resaltado preferido */
+}
+
+/* Mostrar el contenido del dropdown al pasar el mouse */
+.dropdown:hover .dropdown-content {
+  display: block;
+}
+
+/* Animación de entrada del navbar */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-50px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.navbar {
+  animation: fadeIn 0.5s ease-out; /* Aplicar la animación */
+}
+
+/* Menú desplegable para dispositivos móviles */
+@media screen and (max-width: 768px) {
+  .navbar-links ul {
+    display: none; /* Ocultar enlaces en pantallas pequeñas */
+    flex-direction: column; /* Alinear los enlaces verticalmente */
+    background-color: rgba(0, 0, 0, 0.8); /* Fondo semi-transparente */
+    position: absolute; /* Posicionamiento absoluto */
+    top: 60px; /* Ajustar la posición vertical */
+    left: 0; /* Ajustar la posición horizontal */
+    width: 100%; /* Ancho completo */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2); /* Sombra ligera */
+  }
+
+  .navbar-links ul li {
+    margin-right: 0; /* Eliminar margen derecho */
+  }
+
+  .navbar-links ul li a {
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px; /* Espacio alrededor de los enlaces */
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2); /* Separador entre enlaces */
+  }
+
+  .navbar-links.active ul {
+    display: flex; /* Mostrar enlaces cuando el menú está activo */
+  }
+}
+
+/* Efecto de fijar el navbar al hacer scroll */
+.fixed-nav .navbar {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+/* Cambio de estilo al hacer scroll */
+.fixed-nav .logo a {
+  font-size: 20px;
+}
+
+.fixed-nav .navbar-links ul li a {
+  font-size: 16px;
+}
+
+.fixed-nav .navbar-links ul li a i {
+  font-size: 18px;
+}
